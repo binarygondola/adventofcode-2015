@@ -1,0 +1,7 @@
+A => a
+B => b
+C => AA
+D => BB
+E => AB
+F => BA
+S => EF
