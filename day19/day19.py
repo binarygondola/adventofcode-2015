@@ -22,3 +22,26 @@ for i in reactions:
 
 print("part 1:", len(newmolecules))
 
+# part 2
+
+idx = 0
+atoms = list()
+countatoms = 0
+for _ in range(len(molecule)):
+    countatoms += 1
+    tmp = molecule[idx]
+    idx += 1
+    while idx < len(molecule) and molecule[idx].islower():
+        tmp += molecule[idx]
+        idx += 1
+    if tmp not in atoms:
+        atoms.append(tmp)
+    if idx >= len(molecule):
+        break
+
+rn = molecule.count('Rn')
+ar = molecule.count('Ar')
+y = molecule.count('Y')
+
+# thanks to the /u/askalski
+print("part 2:", countatoms - (rn + ar + 2*y) - 1)
