@@ -38,8 +38,7 @@ class Spell:
     def __init__(self, string):
         self.description = string
         self.cost = self.getCost(string)
-        self.lasting = self.getLasting(
-            string) if self.hasLasting(string) else 0
+        self.lasting = self.getLasting(string) if self.hasLasting(string) else 0
         # print('Spell costs {0}, lasts for {1}'.format(self.cost, self.lasting))
         self.name = string.split(' costs')[0]
 
@@ -69,6 +68,29 @@ class Game:
         self.props = Properties()
         self.spells = self.prepareSpells()
 
+    def getProps(self):
+        r = [
+            self.props.rechargeCounter,
+            self.props.shieldCounter,
+            self.props.poisonCounter,
+            self.player.armor,
+            self.player.hp,
+            self.player.mana,
+            self.boss.hp,
+            self.boss.dmg
+        ]
+        return r
+    
+    def setProps(self, props):
+        self.props.rechargeCounter,
+        self.props.shieldCounter,
+        self.props.poisonCounter,
+        self.player.armor,
+        self.player.hp,
+        self.player.mana,
+        self.boss.hp,
+        self.boss.dmg = props
+
     def prepareSpells(self):
         spells = []
         for idx, s in enumerate(desc):
@@ -80,8 +102,8 @@ class Game:
             "Boss has {0} hit points and deals {1} dmg each turn".format(self.boss.hp, self.boss.dmg))
 
     def statsMyself(self):
-        mprint(
-            "You have {0} hit points and {1} mana".format(self.player.hp, self.player.mana))
+        mprint("You have {0} hit points and {1} mana".format(self.player.hp, self.player.mana))
+        self.printCounters()
 
     def whatToDo(self):
         mprint("What spell do you want to use? Press a number")
@@ -199,6 +221,10 @@ class Game:
         return False
 
 
+class Tree:
+    def __init__(self) -> None:
+        pass
+
 manasum = 0
 mprint('')
 mprint('')
@@ -215,6 +241,7 @@ while(not end):
     game.startTurn()
     game.bossTurn()
     game.endTurn()
+    print(game.getProps())
     end = game.endGame()
 
 print(game.player.manasum)
